@@ -1,0 +1,101 @@
+paths:
+  input_dir: input_data
+  eligibility_path: work/data/eligibility.csv
+  output_root: work/outputs
+  delisting_events_csv: null
+raw_data:
+  meta_csv: input_data/Meta.csv
+  macro_workbook: input_data/Portfolio Macro Data.xlsx
+  volume_csv: input_data/Volume.csv
+  adjusted_close_csv: input_data/adjusted_close_prices.csv
+  ff5_plus_momentum_csv: input_data/ff5_plus_momentum_monthly_2016_2025.csv
+  universe_tickers_file: work/data/universe_derived.csv
+  expected_universe_size: 470
+  oracle_delisting_diagnostic_csv: work/data/delisting_events_oracle_diagnostic.csv
+calendar:
+  outcome_start: '2019-02-28'
+  outcome_end: '2025-12-31'
+  expected_outcomes: 83
+eligibility:
+  history_months: 36
+  liquidity_window_months: 36
+  signal_lag_months: 1
+  formation_after_month_end_close: true
+  relative_liquidity_threshold: 0.0001
+  liquidity_measure: dollar_volume
+  require_every_history_month_active: true
+  min_active_history_months: null
+  volume_is_dollar: true
+  price_proxy: adjusted_close
+  max_current_price_staleness_days: 10
+  delisting_mode: current_only
+realized_returns:
+  policy: last_trade_to_cash
+  fixed_haircut: 0.3
+  accrue_cash_after_last_quote: true
+  max_formation_price_staleness_days: 10
+experiment:
+  training_months: 36
+  information_lag_months: 0
+  min_observations: 36
+  max_missing_fraction: 0.0
+  min_assets: 5
+  n_scenarios: 2000
+  posterior_calibration_months: 24
+  posterior_forgetting: 1.0
+  utility_gamma: 1.0
+  score_names:
+  - predictive_log
+  - post_cost_utility
+  action_names:
+  - hard
+  - mix
+  include_equal_mix: true
+  arm_names:
+  - M_FF5MOM
+  - M_HierMacro
+  class_style_policy: default
+  included_asset_classes: null
+  hierarchical_forecast_mode: mean_zero
+  hierarchical_mean_treatment: base_empirical
+  mean_shrinkage_fraction: 0.0
+  posterior_partition: pooled
+  state_calibration_months: 8
+  state_pooling_weight: 0.5
+  common_cvar_budget_source: none
+  initial_wealth: 1000.0
+  apply_initial_funding_cost: true
+  fallback_policy: fail
+  save_weights: true
+  optimizer:
+    cvar_alpha: 0.95
+    max_weight: 0.2
+    active_min_weight: 0.0005
+    adjustment_penalty: 0.1
+    transaction_cost_bps: 10.0
+    cvar_budget_mode: scenario_equal_weight
+    cvar_budget: null
+    highs_options: null
+regime:
+  vix_column: VIX
+  hy_oas_column: HY OAS
+  source_units: decimal
+  lag_months: 1
+  stress_vix: 18.0
+  crisis_vix: 25.0
+  stress_hy_oas_bps: 350.0
+  crisis_hy_oas_bps: 500.0
+seed_start: 20260322
+n_seeds: 30
+inference:
+  primary_bootstrap_replications: 5000
+  multiple_testing_bootstrap_replications: 5000
+  mean_block_length_months: 6.0
+  bootstrap_seed: 20260322
+parallel:
+  workers: 1
+  schedule: seed
+  start_method: spawn
+  numeric_threads_per_worker: 1
+  cache_mode: 'off'
+  result_cache_mode: 'off'
