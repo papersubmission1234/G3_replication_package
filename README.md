@@ -1,6 +1,6 @@
 # Reproducing the study: run guide
 
-Run all commands from the project root using `config/confirmatory.yaml`. The primary study uses 2,000 scenarios per expert and month, 30 master seeds, and 83 monthly outcomes. The paths in the configuration must point to the supplied or separately obtained original inputs.
+Run all commands from the project root using `config/confirmatory.yaml`. The primary study uses 2,000 scenarios per expert and month, 30 master seeds, and 83 monthly outcomes. The paths in the configuration must point to the supplied original inputs.
 
 ## Folder layout
 
@@ -10,7 +10,7 @@ src/g3_confirmatory/                Engine
 config/confirmatory.yaml            Original experiment; paths, cache mode, multiprocessing settings
 input_data/                         Place the five data files
 docs/                               Provenance
-requirements*.txt                   Dependencies and recorded historical package versions
+requirements.txt                    Dependencies and recorded historical package versions
 ```
 
 ## Important config notes
